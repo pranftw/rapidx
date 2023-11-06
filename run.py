@@ -20,6 +20,7 @@ if __name__=='__main__':
   NUM_WORKERS = args.num_workers
   OUTPUT_DIR = args.output_dir
   PRINT_FREQ = args.print_freq
+  CKPT_FREQ = args.ckpt_freq
   METRICS = args.metrics
 
   Module = get_module(MODULE_PATH, MODULE)
@@ -30,7 +31,7 @@ if __name__=='__main__':
 
   model = Module(module_args)
   logger = TensorBoardLogger(save_dir=OUTPUT_DIR)
-  log_callback = LogCallback(PRINT_FREQ, METRICS)
+  log_callback = LogCallback(PRINT_FREQ, CKPT_FREQ, METRICS)
   trainer = pl.Trainer(accelerator='gpu', devices=DEVICES, max_epochs=EPOCHS, logger=logger, enable_checkpointing=False, callbacks=[log_callback])
   trainer.fit(model, train_dl, val_dl)
   trainer.test(model, test_dl)

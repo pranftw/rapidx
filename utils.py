@@ -8,8 +8,9 @@ import glob
 
 
 class LogCallback(Callback):
-  def __init__(self, print_freq=1, metrics=['loss']):
+  def __init__(self, print_freq, ckpt_freq, metrics):
     self.print_freq = print_freq
+    self.ckpt_freq = ckpt_freq
     self.metrics = metrics
 
   def on_train_batch_end(self, trainer, pl_module, outputs, batch, batch_idx):
@@ -30,6 +31,9 @@ class LogCallback(Callback):
   def on_train_epoch_end(self, trainer, pl_module):
     if pl_module.current_epoch%self.print_freq==0:
       print('')
+    if self.ckpt_freq is not None:
+      if pl_module.current_epoch%self.ckpt_freq==0:
+        trainer.save_checkpoint(os.path.join(trainer.logger.log_dir, 'checkpoints', f'{pl_module.current_epoch}.ckpt'))
 
   def on_test_epoch_end(self, trainer, pl_module):
     for metric in self.metrics:
@@ -51,6 +55,7 @@ def get_parser():
   parser.add_argument('--num_workers', type=int, default=4)
   parser.add_argument('--output_dir', type=str, default='outputs')
   parser.add_argument('--print_freq', type=int, default=1)
+  parser.add_argument('--ckpt_freq', type=int, default=None)
   parser.add_argument('--metrics', type=str, nargs='*', default=['loss'])
   return parser
 
