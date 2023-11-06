@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Sastry"
+  given-names: "Pranav"
+  orcid: "https://orcid.org/0000-0003-2091-3790"
+title: "rapidx - A toolbox that integrates with PyTorch-Lightning which helps in running and managing multiple codebases"
+version: 0.0.1
+date-released: 2023-11-06
+url: "https://github.com/pranftw/rapidx"
