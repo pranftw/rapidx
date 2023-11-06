@@ -1,7 +1,7 @@
 # rapidx
 #### rapidx - A toolbox that integrates with PyTorch Lightning which helps in running and managing multiple codebases
 
-### Docs/comments will be added soon. Please bear until then.
+### Docs/comments will be added soon. Please bear until then. Highly recommended to play around and customize it even more acoording to your needs.
 
 ## Motivation
 Suppose you've embarked on a PyTorch based deep learning research project that involves experimenting with ideas from multiple papers with each of them having their own separate codebases. Each of these codebases usually have their own set of requirements that needs to be managed through activating the right virtual environment during execution, their own way of logging metrics, separate set of commandline arguments, different code structure, training pipelines and whatnot. Managing all these is a messy affair. Hence in order to streamline the entire process, **rapidx** was created which stands for Rapid Experimentation(it's lame, ik, but ehh).
@@ -11,6 +11,7 @@ Suppose you've embarked on a PyTorch based deep learning research project that i
   - Streamlines logging metrics
   - Training pipeline implemented through `LightningModule` that brings uniformity
   - All configs handled through `argparse` and args specific to a particular module can be specified
+  - Logging through `TensorBoardLogger`
   - A single `run.py` file to interface with all the codebases
   - `multiple_screens.py` allows you to run a module with different configs in parallel within a TMUX session. Useful for testing multiple experiment configs or hyperparameter tuning
 
@@ -55,3 +56,16 @@ python run_mnist.py
   - `utils.py` - Helper functions
   - Each module in `modules` dir contains either `lgt_module.py` or `lgt_module` package which will be utilized by
   `run.py` to execute the module
+
+
+## If you use this software in your work, please cite it using the following BibTeX
+```
+@software{Sastry_rapidx_2023,
+author = {Sastry, Pranav},
+month = nov,
+title = {{rapidx - A toolbox that integrates with PyTorch-Lightning which helps in running and managing multiple codebases}},
+url = {https://github.com/pranftw/rapidx},
+version = {0.0.1},
+year = {2023}
+}
+```
