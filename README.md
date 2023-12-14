@@ -1,7 +1,7 @@
 # rapidx
 #### rapidx - A toolbox that integrates with PyTorch Lightning which helps in running and managing multiple codebases
 
-### Docs/comments will be added soon. Please bear until then. Highly recommended to play around and customize it even more acoording to your needs.
+### Docs/comments will be added soon. Please bear until then. Highly recommended to play around and customize it even more according to your needs.
 
 ## Motivation
 Suppose you've embarked on a PyTorch based deep learning research project that involves experimenting with ideas from multiple papers with each of them having their own separate codebases. Each of these codebases usually have their own set of requirements that needs to be managed through activating the right virtual environment during execution, their own way of logging metrics, separate set of commandline arguments, different code structure, training pipelines and whatnot. Managing all these is a messy affair. Hence in order to streamline the entire process, **rapidx** was created which stands for Rapid Experimentation(it's lame, ik, but ehh).
