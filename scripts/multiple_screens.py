@@ -1,4 +1,5 @@
 from itertools import product
+from tqdm import tqdm
 import subprocess
 import os
 import time
@@ -26,7 +27,7 @@ def get_command(params, init_command='python run.py'):
 
 def create_screen_windows(num_windows):
   for _ in range(num_windows):
-    subprocess.Popen(f'tmux new-window -d', shell=True)
+    subprocess.run(f'tmux new-window -d', shell=True)
 
 
 def check_execution_status(tmp_fpath):
@@ -72,7 +73,8 @@ def run(params, get_reqd_params, screen_cmds, *vars, max_runs=10, check_freq=300
   all_configs = tuple(product(*vars))
   grouped_configs = group_configs(all_configs, max_runs)
 
-  for configs in grouped_configs:
+  for configs in tqdm(grouped_configs):
+    # print(configs)
     tmp_fpath = os.path.join(os.getcwd(), 'run.tmp')
     validate_run()
     create_screen_windows(len(configs))
@@ -87,3 +89,13 @@ def run(params, get_reqd_params, screen_cmds, *vars, max_runs=10, check_freq=300
         subprocess.run(f'rm -r {tmp_fpath}', shell=True)
         break
       time.sleep(check_freq)
+
+
+def print_commands(params, get_reqd_params, *vars, retain_output_dir=True):
+  all_configs = tuple(product(*vars))
+  all_commands = []
+  for reqd_var in all_configs:
+    reqd_params = get_reqd_params(params, reqd_var)
+    if not retain_output_dir: del reqd_params['output_dir']
+    all_commands.append(get_command(reqd_params))
+  print('; '.join(all_commands))
